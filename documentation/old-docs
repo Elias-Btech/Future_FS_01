@@ -1,0 +1,544 @@
+# 🔧 TROUBLESHOOTING & FAQ
+
+## Common Issues and Solutions
+
+---
+
+## SECTION 1: SETUP & INSTALLATION
+
+### Q: "Database connection failed" error
+**A**: 
+1. Check `config/db.php` has correct credentials
+2. Verify MySQL is running: `mysql -u root -p`
+3. Ensure database exists: `SHOW DATABASES;`
+4. Check user has permissions: `SHOW GRANTS FOR 'user'@'localhost';`
+
+**Quick Fix**:
+```bash
+# Test connection
+mysql -u root -p portfolio_db
+
+# If fails, recreate database
+mysql -u root -p
+CREATE DATABASE portfolio_db;
+GRANT ALL ON portfolio_db.* TO 'portfolio_user'@'localhost';
+FLUSH PRIVILEGES;
+```
+
+---
+
+### Q: "setup-database.php" not working
+**A**:
+1. Ensure file exists in root directory
+2. Check file permissions: `chmod 644 setup-database.php`
+3. Verify PHP can execute: `php setup-database.php`
+4. Check error logs: `tail -f logs/debug.log`
+
+**Quick Fix**:
+```bash
+# Run directly
+php setup-database.php
+
+# Or check permissions
+ls -la setup-database.php
+```
+
+---
+
+### Q: "Permission denied" when uploading files
+**A**:
+1. Check directory permissions: `ls -la`
+2. Fix permissions:
+```bash
+chmod 755 config/
+chmod 644 config/*.php
+chmod 755 php/
+chmod 755 assets/
+```
+
+---
+
+## SECTION 2: LOGIN & AUTHENTICATION
+
+### Q: "Login not working" - wrong password
+**A**:
+1. Password hash might be corrupted
+2. Run password reset:
+```bash
+php generate-new-password.php
+```
+3. Copy the hash and update database:
+```sql
+UPDATE users SET password_hash='[new-hash]' WHERE email='owner@portfolio.com';
+```
+
+---
+
+### Q: "Session expired" message
+**A**:
+1. Session timeout is 30 minutes
+2. Check `config/security.php` for timeout setting
+3. Clear browser cookies and try again
+4. Verify PHP session directory exists: `/tmp/` or `C:\Windows\Temp\`
+
+**Quick Fix**:
+```php
+// In config/security.php, increase timeout
+define('SESSION_TIMEOUT', 3600); // 1 hour
+```
+
+---
+
+### Q: "CSRF token validation failed"
+**A**:
+1. Session might be expired
+2. Clear browser cache and cookies
+3. Try again in new browser tab
+4. Check `config/security.php` CSRF settings
+
+---
+
+### Q: "Cannot access dashboard"
+**A**:
+1. Verify you're logged in: Check for login.php redirect
+2. Check session is active: `echo $_SESSION['user_id'];`
+3. Verify user exists in database:
+```sql
+SELECT * FROM users WHERE email='owner@portfolio.com';
+```
+
+---
+
+## SECTION 3: PROJECTS MANAGEMENT
+
+### Q: "Projects not displaying on homepage"
+**A**:
+1. Check projects exist in database:
+```sql
+SELECT * FROM projects;
+```
+2. Verify `php/projects.php` is accessible
+3. Check browser console for errors (F12)
+4. Verify database connection in `config/db.php`
+
+**Quick Fix**:
+```bash
+# Insert sample projects
+mysql -u root -p portfolio_db < SAMPLE_PROJECTS_INSERT.sql
+```
+
+---
+
+### Q: "Cannot add/edit projects"
+**A**:
+1. Check CSRF token is valid
+2. Verify form data is correct
+3. Check `php/projects.php` permissions: `chmod 644 php/projects.php`
+4. Review error logs: `tail -f logs/debug.log`
+
+**Debug**:
+```javascript
+// In browser console
+fetch('php/projects.php?action=all')
+  .then(r => r.json())
+  .then(d => console.log(d))
+```
+
+---
+
+### Q: "Project images not showing"
+**A**:
+1. Verify emoji is valid Unicode
+2. Check browser supports emoji
+3. Try different emoji: 🚀 🎨 ⚙️ 🗄️
+
+---
+
+## SECTION 4: CONTACT FORM
+
+### Q: "Contact form not sending"
+**A**:
+1. Check email configuration in `config/email.php`
+2. Verify SMTP credentials are correct
+3. Check rate limiting: 5 messages per hour per IP
+4. Review error logs
+
+**Quick Fix**:
+```php
+// Test email sending
+$to = 'your-email@example.com';
+$subject = 'Test';
+$message = 'Test message';
+$headers = 'From: noreply@yourdomain.com';
+mail($to, $subject, $message, $headers);
+```
+
+---
+
+### Q: "Rate limit exceeded" error
+**A**:
+1. You've sent 5+ messages in 1 hour
+2. Wait 1 hour before sending again
+3. Or clear rate limit:
+```bash
+php reset-rate-limit.php
+```
+
+---
+
+### Q: "Email validation failed"
+**A**:
+1. Check email format: user@example.com
+2. Verify email is not too long (max 254 chars)
+3. Check for special characters
+
+---
+
+### Q: "Honeypot triggered"
+**A**:
+1. You filled in the hidden "website" field
+2. This is spam protection - don't fill hidden fields
+3. Try again without filling hidden fields
+
+---
+
+## SECTION 5: STYLING & DISPLAY
+
+### Q: "Dark mode not working"
+**A**:
+1. Check theme toggle button (moon icon)
+2. Verify CSS variables are defined in `:root`
+3. Check browser console for CSS errors
+4. Clear browser cache: Ctrl+Shift+Delete
+
+**Quick Fix**:
+```javascript
+// In browser console
+document.documentElement.setAttribute('data-theme', 'dark');
+localStorage.setItem('theme', 'dark');
+```
+
+---
+
+### Q: "Images not loading"
+**A**:
+1. Check image file exists: `ls -la assets/`
+2. Verify file permissions: `chmod 644 assets/*`
+3. Check image path is correct
+4. Verify image format is supported (JPG, PNG, WebP)
+
+**Quick Fix**:
+```bash
+# Check file
+file assets/personal-photo-removebg-preview.png
+
+# Fix permissions
+chmod 644 assets/*
+```
+
+---
+
+### Q: "Styling looks broken"
+**A**:
+1. Clear browser cache: Ctrl+Shift+Delete
+2. Check CSS file loads: F12 > Network > css/animations.css
+3. Verify no CSS errors in console
+4. Try different browser
+
+---
+
+### Q: "Animations not working"
+**A**:
+1. Check browser supports CSS animations
+2. Verify `css/animations.css` is loaded
+3. Check for JavaScript errors in console
+4. Try disabling browser extensions
+
+---
+
+## SECTION 6: RESPONSIVE DESIGN
+
+### Q: "Mobile view looks wrong"
+**A**:
+1. Check viewport meta tag in `<head>`
+2. Verify media queries are correct
+3. Test on actual mobile device
+4. Check browser zoom is 100%
+
+**Quick Fix**:
+```html
+<!-- Ensure this is in <head> -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+```
+
+---
+
+### Q: "Hamburger menu not working"
+**A**:
+1. Check JavaScript is enabled
+2. Verify menu toggle button exists
+3. Check for JavaScript errors in console
+4. Test on different browser
+
+---
+
+## SECTION 7: PERFORMANCE
+
+### Q: "Website is slow"
+**A**:
+1. Check server resources: `top`
+2. Optimize images: < 200KB each
+3. Enable gzip compression
+4. Minify CSS/JavaScript
+5. Use CDN for static files
+
+**Quick Fix**:
+```bash
+# Check page load time
+curl -w "@curl-format.txt" -o /dev/null -s https://yourdomain.com
+
+# Optimize images
+convert image.jpg -quality 85 image-optimized.jpg
+```
+
+---
+
+### Q: "Database queries are slow"
+**A**:
+1. Add indexes to frequently queried columns
+2. Optimize SQL queries
+3. Use EXPLAIN to analyze queries
+4. Consider caching
+
+**Quick Fix**:
+```sql
+-- Add index
+ALTER TABLE projects ADD INDEX idx_sort_order (sort_order);
+
+-- Analyze query
+EXPLAIN SELECT * FROM projects ORDER BY sort_order;
+```
+
+---
+
+## SECTION 8: SECURITY
+
+### Q: "Getting security warnings"
+**A**:
+1. Enable HTTPS/SSL certificate
+2. Update security headers in `config/security.php`
+3. Keep PHP and dependencies updated
+4. Use strong passwords
+
+---
+
+### Q: "SQL injection warning"
+**A**:
+1. All queries use prepared statements (safe)
+2. Input is sanitized with `sanitizeString()`
+3. No direct SQL concatenation
+4. You're protected ✅
+
+---
+
+### Q: "XSS vulnerability warning"
+**A**:
+1. All output is escaped with `htmlspecialchars()`
+2. No unescaped user input displayed
+3. Content Security Policy headers set
+4. You're protected ✅
+
+---
+
+## SECTION 9: DEPLOYMENT
+
+### Q: "Site not accessible after deployment"
+**A**:
+1. Check domain DNS is pointing to server
+2. Verify files uploaded to correct directory
+3. Check file permissions: `chmod 755 public_html/`
+4. Verify Apache/Nginx is running
+
+**Quick Fix**:
+```bash
+# Check Apache status
+systemctl status apache2
+
+# Check DNS
+nslookup yourdomain.com
+
+# Check file permissions
+chmod -R 755 /var/www/html/portfolio
+```
+
+---
+
+### Q: "Database not accessible on production"
+**A**:
+1. Verify database credentials in `config/db.php`
+2. Check database user has correct permissions
+3. Verify database exists on production server
+4. Check firewall allows MySQL port 3306
+
+---
+
+### Q: "SSL certificate not working"
+**A**:
+1. Verify certificate is installed
+2. Check certificate is not expired: `certbot certificates`
+3. Renew if needed: `certbot renew`
+4. Check Apache SSL module is enabled: `a2enmod ssl`
+
+---
+
+## SECTION 10: COMMON ERRORS
+
+### Error: "Parse error: syntax error"
+**A**: PHP syntax error in code
+```bash
+# Check syntax
+php -l config/db.php
+
+# Fix the error and try again
+```
+
+---
+
+### Error: "Call to undefined function"
+**A**: Function doesn't exist or file not included
+```php
+// Make sure file is included
+require_once __DIR__.'/config/db.php';
+```
+
+---
+
+### Error: "Cannot modify header information"
+**A**: Output sent before headers
+```php
+// Move header() calls to top of file
+// Before any echo or HTML output
+header('Content-Type: application/json');
+```
+
+---
+
+### Error: "Undefined variable"
+**A**: Variable not initialized
+```php
+// Initialize before use
+$variable = $variable ?? 'default';
+```
+
+---
+
+## SECTION 11: QUICK DIAGNOSTICS
+
+### Run Diagnostic Script
+```bash
+# Create diagnostic script
+cat > diagnose.php << 'EOF'
+<?php
+echo "=== DIAGNOSTIC REPORT ===\n\n";
+
+// PHP Version
+echo "PHP Version: " . phpversion() . "\n";
+
+// Extensions
+echo "MySQL Extension: " . (extension_loaded('mysqli') ? 'Yes' : 'No') . "\n";
+echo "PDO Extension: " . (extension_loaded('pdo') ? 'Yes' : 'No') . "\n";
+
+// Database Connection
+try {
+    $pdo = new PDO('mysql:host=localhost', 'root', '');
+    echo "Database Connection: OK\n";
+} catch (Exception $e) {
+    echo "Database Connection: FAILED - " . $e->getMessage() . "\n";
+}
+
+// File Permissions
+echo "\nFile Permissions:\n";
+echo "config/: " . substr(sprintf('%o', fileperms('config')), -4) . "\n";
+echo "php/: " . substr(sprintf('%o', fileperms('php')), -4) . "\n";
+echo "assets/: " . substr(sprintf('%o', fileperms('assets')), -4) . "\n";
+
+// Disk Space
+echo "\nDisk Space:\n";
+echo "Free: " . round(disk_free_space('/') / 1024 / 1024 / 1024, 2) . " GB\n";
+echo "Total: " . round(disk_total_space('/') / 1024 / 1024 / 1024, 2) . " GB\n";
+
+echo "\n=== END REPORT ===\n";
+?>
+EOF
+
+# Run it
+php diagnose.php
+```
+
+---
+
+## SECTION 12: GETTING HELP
+
+### Resources
+- **Documentation**: Check PORTFOLIO_IMPLEMENTATION_GUIDE.md
+- **Stack Overflow**: Search for your error
+- **GitHub Issues**: Check project issues
+- **Community Forums**: PHP, MySQL communities
+
+### When Asking for Help
+Include:
+1. Error message (exact text)
+2. What you were doing
+3. Steps to reproduce
+4. PHP version
+5. MySQL version
+6. Server OS
+
+### Example
+```
+Error: "Database connection failed"
+PHP Version: 8.1.0
+MySQL Version: 8.0.28
+OS: Ubuntu 22.04
+
+Steps:
+1. Uploaded files to server
+2. Updated config/db.php
+3. Ran setup-database.php
+4. Got error on homepage
+
+Error Log:
+[exact error message]
+```
+
+---
+
+## SECTION 13: MAINTENANCE CHECKLIST
+
+### Weekly
+- [ ] Check error logs
+- [ ] Monitor uptime
+- [ ] Review contact messages
+
+### Monthly
+- [ ] Update content
+- [ ] Review analytics
+- [ ] Check backups
+- [ ] Test all forms
+
+### Quarterly
+- [ ] Update dependencies
+- [ ] Security audit
+- [ ] Performance review
+- [ ] Database optimization
+
+### Yearly
+- [ ] Renew SSL certificate
+- [ ] Update PHP/MySQL
+- [ ] Full security audit
+- [ ] Backup review
+
+---
+
+**Last Updated**: April 19, 2026
+**Status**: Comprehensive Troubleshooting ✅

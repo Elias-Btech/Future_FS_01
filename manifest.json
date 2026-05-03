@@ -1,0 +1,87 @@
+{
+  "name": "Elias Araya - Full Stack Developer Portfolio",
+  "short_name": "Elias Portfolio",
+  "description": "Professional full-stack developer portfolio showcasing PHP, MySQL, JavaScript projects and expertise",
+  "start_url": "/index.php?utm_source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#2563EB",
+  "prefer_related_applications": false,
+  
+  "icons": [
+    {
+      "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='192' height='192' viewBox='0 0 192 192'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%232563EB;stop-opacity:1' /><stop offset='100%' style='stop-color:%2314B8A6;stop-opacity:1' /></linearGradient></defs><rect width='192' height='192' rx='32' fill='url(%23grad)'/><text x='50%' y='50%' font-family='Inter, sans-serif' font-weight='900' font-size='100' fill='%23ffffff' text-anchor='middle' dominant-baseline='central'>EA</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%232563EB;stop-opacity:1' /><stop offset='100%' style='stop-color:%2314B8A6;stop-opacity:1' /></linearGradient></defs><rect width='512' height='512' rx='96' fill='url(%23grad)'/><text x='50%' y='50%' font-family='Inter, sans-serif' font-weight='900' font-size='280' fill='%23ffffff' text-anchor='middle' dominant-baseline='central'>EA</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  
+  "categories": ["business", "productivity", "portfolio"],
+  
+  "screenshots": [
+    {
+      "src": "/assets/elias-nobg.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Portfolio Homepage"
+    },
+    {
+      "src": "/assets/elias.jpg",
+      "sizes": "1280x720",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Portfolio Desktop View"
+    }
+  ],
+  
+  "shortcuts": [
+    {
+      "name": "View Portfolio",
+      "short_name": "Portfolio",
+      "description": "View my full portfolio and projects",
+      "url": "/index.php?utm_source=pwa_shortcut",
+      "icons": [
+        {
+          "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'><rect width='96' height='96' rx='16' fill='%232563EB'/><text x='50%' y='50%' font-family='Inter' font-weight='900' font-size='50' fill='%23fff' text-anchor='middle' dominant-baseline='central'>📁</text></svg>",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Contact Me",
+      "short_name": "Contact",
+      "description": "Get in touch with me",
+      "url": "/index.php?utm_source=pwa_shortcut#contact",
+      "icons": [
+        {
+          "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'><rect width='96' height='96' rx='16' fill='%2314B8A6'/><text x='50%' y='50%' font-family='Inter' font-weight='900' font-size='50' fill='%23fff' text-anchor='middle' dominant-baseline='central'>✉️</text></svg>",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ],
+  
+  "share_target": {
+    "action": "/php/contact.php",
+    "method": "POST",
+    "enctype": "application/x-www-form-urlencoded",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}
+

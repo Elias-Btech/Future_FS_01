@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Offline – Elias Araya Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --primary: #2563EB;
+  --primary-dark: #1D4ED8;
+  --accent: #14B8A6;
+  --bg-light: #F8FAFC;
+  --bg-dark: #0F172A;
+  --card-light: #FFFFFF;
+  --card-dark: #1E293B;
+  --text-light: #0F172A;
+  --text-dark: #F1F5F9;
+  --border-light: #E2E8F0;
+  --border-dark: #334155;
+  --shadow: 0 4px 20px rgba(0,0,0,0.08);
+  --radius: 12px;
+  --transition: 0.3s ease;
+}
+
+[data-theme="dark"] {
+  --bg-light: var(--bg-dark);
+  --card-light: var(--card-dark);
+  --text-light: var(--text-dark);
+  --border-light: var(--border-dark);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-light);
+  color: var(--text-light);
+  line-height: 1.6;
+  transition: background var(--transition), color var(--transition);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* ===== HEADER ===== */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-light);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  box-shadow: var(--shadow);
+}
+
+[data-theme="dark"] header {
+  background: rgba(15,23,42,0.95);
+  border-bottom-color: var(--border-dark);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--text-light);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.logo span {
+  color: var(--primary);
+}
+
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: var(--bg-light);
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition);
+}
+
+[data-theme="dark"] .theme-toggle {
+  background: var(--card-dark);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+/* ===== MAIN CONTENT ===== */
+main {
+  margin-top: 60px;
+  text-align: center;
+  max-width: 600px;
+  padding: 40px 20px;
+}
+
+.offline-icon {
+  font-size: 5rem;
+  margin-bottom: 24px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  margin-bottom: 32px;
+  line-height: 1.7;
+  opacity: 0.8;
+}
+
+[data-theme="dark"] .subtitle {
+  color: var(--text-dark);
+}
+
+.offline-card {
+  background: var(--card-light);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+[data-theme="dark"] .offline-card {
+  background: var(--card-dark);
+  border-color: var(--border-dark);
+}
+
+.offline-card h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--primary);
+}
+
+.offline-card p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-light);
+  margin-bottom: 12px;
+}
+
+[data-theme="dark"] .offline-card p {
+  color: var(--text-dark);
+}
+
+.offline-card p:last-child {
+  margin-bottom: 0;
+}
+
+.offline-list {
+  list-style: none;
+  margin-top: 16px;
+}
+
+.offline-list li {
+  padding: 8px 0;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+[data-theme="dark"] .offline-list li {
+  color: var(--text-dark);
+}
+
+.offline-list li::before {
+  content: "✓ ";
+  color: var(--accent);
+  font-weight: 700;
+  margin-right: 8px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 10px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: inherit;
+  text-decoration: none;
+  margin-top: 16px;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 4px 14px rgba(37,99,235,0.3);
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37,99,235,0.4);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(239,68,68,0.1);
+  color: #DC2626;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #DC2626;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* ===== FOOTER ===== */
+footer {
+  margin-top: auto;
+  padding: 20px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  opacity: 0.6;
+}
+
+[data-theme="dark"] footer {
+  color: var(--text-dark);
+}
+
+@media (max-width: 640px) {
+  h1 {
+    font-size: 2rem;
+  }
+  
+  .offline-icon {
+    font-size: 3.5rem;
+  }
+  
+  .offline-card {
+    padding: 24px;
+  }
+  
+  main {
+    padding: 20px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="/" class="logo">EA<span>.</span></a>
+  <button class="theme-toggle" id="themeToggle">🌙</button>
+</header>
+
+<!-- MAIN CONTENT -->
+<main>
+  <div class="status-indicator">
+    <span class="status-dot"></span>
+    You are offline
+  </div>
+  
+  <div class="offline-icon">📡</div>
+  
+  <h1>You're Offline</h1>
+  <p class="subtitle">It looks like you've lost your internet connection. Don't worry, you can still access cached content.</p>
+  
+  <div class="offline-card">
+    <h2>📚 What You Can Access</h2>
+    <ul class="offline-list">
+      <li>Your portfolio homepage</li>
+      <li>About section</li>
+      <li>Skills and projects</li>
+      <li>Contact information</li>
+      <li>Previously viewed pages</li>
+    </ul>
+  </div>
+  
+  <div class="offline-card">
+    <h2>❌ What's Not Available</h2>
+    <p>The following features require an internet connection:</p>
+    <ul class="offline-list" style="list-style: none;">
+      <li style="color: #DC2626;">Dashboard (admin panel)</li>
+      <li style="color: #DC2626;">Login/Register</li>
+      <li style="color: #DC2626;">Sending messages</li>
+      <li style="color: #DC2626;">Real-time updates</li>
+    </ul>
+  </div>
+  
+  <div class="offline-card">
+    <h2>💡 What to Do</h2>
+    <p>Check your internet connection and try one of these:</p>
+    <ul class="offline-list">
+      <li>Refresh the page</li>
+      <li>Check your WiFi or mobile data</li>
+      <li>Try again in a few moments</li>
+      <li>Visit the homepage</li>
+    </ul>
+  </div>
+  
+  <button class="btn btn-primary" onclick="location.href='/'">← Go to Homepage</button>
+  <button class="btn btn-primary" onclick="location.reload()" style="background: var(--accent);">🔄 Retry Connection</button>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <p>Elias Araya Portfolio • Offline Mode</p>
+</footer>
+
+<script>
+// Theme toggle
+const themeToggle = document.getElementById('themeToggle');
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+themeToggle.addEventListener('click', () => {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const newTheme = isDark ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+  themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+});
+
+// Check connection status
+window.addEventListener('online', () => {
+  console.log('Connection restored');
+  // Optionally redirect to homepage
+  setTimeout(() => {
+    location.href = '/';
+  }, 2000);
+});
+
+window.addEventListener('offline', () => {
+  console.log('Connection lost');
+});
+</script>
+
+</body>
+</html>

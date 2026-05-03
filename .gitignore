@@ -1,0 +1,109 @@
+# ===================================
+# Professional Portfolio - .gitignore
+# ===================================
+
+# ============ Environment Files ============
+.env
+.env.local
+.env.*.local
+config/db.php
+config/email.php
+
+# ============ Dependencies ============
+node_modules/
+vendor/
+composer.phar
+package-lock.json
+yarn.lock
+
+# ============ IDE & Editor Files ============
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+*.sublime-project
+*.sublime-workspace
+
+# ============ Logs ============
+*.log
+logs/*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ============ Temporary Files ============
+*.tmp
+*.temp
+*.cache
+.sass-cache/
+*.pid
+*.seed
+*.pid.lock
+
+# ============ Build & Distribution ============
+dist/
+build/
+*.min.js
+*.min.css
+.cache/
+
+# ============ Database ============
+*.sql.backup
+*.db
+*.sqlite
+*.sqlite3
+
+# ============ Uploads & User Content ============
+uploads/*
+!uploads/.gitkeep
+assets/uploads/*
+!assets/uploads/.gitkeep
+
+# ============ Security ============
+*.pem
+*.key
+*.cert
+*.crt
+private/
+secrets/
+
+# ============ Testing ============
+coverage/
+.nyc_output/
+*.test.js
+*.spec.js
+phpunit.xml
+.phpunit.result.cache
+
+# ============ OS Files ============
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ============ Backup Files ============
+*.bak
+*.backup
+*.old
+*~
+
+# ============ Compressed Files ============
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# ============ Documentation Drafts ============
+documentation/drafts/
+docs/drafts/
+
+# ============ Keep Empty Directories ============
+!.gitkeep
