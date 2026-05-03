@@ -39,7 +39,6 @@ A comprehensive, production-ready portfolio website designed for developers, des
 
 - 🎨 **Modern Design**: Clean, professional UI with smooth animations
 - 📱 **Fully Responsive**: Optimized for all devices (mobile, tablet, desktop)
-- 🌍 **Multi-language Support**: Built-in internationalization (i18n) with 7 languages
 - 🌓 **Dark/Light Mode**: Seamless theme switching with user preference persistence
 - ⚡ **PWA Ready**: Progressive Web App with offline support
 - 🔒 **Secure**: Built with security best practices (CSRF protection, XSS prevention)
@@ -59,7 +58,6 @@ A comprehensive, production-ready portfolio website designed for developers, des
 |---------|-------------|
 | **Responsive Design** | Mobile-first approach with breakpoints for all screen sizes |
 | **Dark Mode** | System preference detection with manual toggle |
-| **Multi-language** | Support for EN, ES, FR, AR, AM, TI, HI |
 | **PWA Support** | Installable app with offline functionality |
 | **SEO Optimized** | Meta tags, sitemap, robots.txt, structured data |
 | **Performance** | Lazy loading, optimized assets, minimal dependencies |
@@ -103,7 +101,6 @@ A comprehensive, production-ready portfolio website designed for developers, des
 - **Security**: PDO prepared statements, CSRF tokens, XSS filtering
 - **Email**: PHPMailer
 - **Analytics**: Custom analytics implementation
-- **Internationalization**: Custom i18n system
 
 ---
 
@@ -195,16 +192,7 @@ portfolio/
 ├── 📂 config/               # Configuration files
 │   ├── db.php              # Database config
 │   ├── email.php           # Email config
-│   ├── i18n.php            # Internationalization
-│   ├── security.php        # Security settings
-│   └── lang/               # Language files
-│       ├── en.json         # English
-│       ├── es.json         # Spanish
-│       ├── fr.json         # French
-│       ├── ar.json         # Arabic
-│       ├── am.json         # Amharic
-│       ├── ti.json         # Tigrinya
-│       └── hi.json         # Hindi
+│   └── security.php        # Security settings
 ├── 📂 css/                  # Stylesheets
 │   ├── animations.css      # Animation styles
 │   └── auth.css            # Authentication styles
@@ -218,7 +206,6 @@ portfolio/
 │   └── API_REFERENCE.md
 ├── 📂 js/                   # JavaScript files
 │   ├── animations.js       # Animation logic
-│   ├── language-switcher.js # i18n functionality
 │   └── pwa-init.js         # PWA initialization
 ├── 📂 logs/                 # Application logs
 │   ├── email.log
@@ -274,16 +261,6 @@ define('SMTP_USER', 'your-email@gmail.com');
 define('SMTP_PASS', 'your-app-password');
 define('SMTP_FROM', 'your-email@gmail.com');
 define('SMTP_NAME', 'Your Name');
-```
-
-### Language Configuration
-
-Edit `config/i18n.php` to set default language:
-
-```php
-<?php
-define('DEFAULT_LANG', 'en');
-define('AVAILABLE_LANGS', ['en', 'es', 'fr', 'ar', 'am', 'ti', 'hi']);
 ```
 
 ---
